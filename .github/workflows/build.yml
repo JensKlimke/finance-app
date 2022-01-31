@@ -1,27 +1,37 @@
-on:
-  push:
-    tags:
-      - '*'
-
+name: Build Finance App
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+        # Check out repo
       - name: Clone repository
         uses: actions/checkout@v2
-      - name: Use Node.js 12.x
+        # Choose node
+      - name: Use Node.js 17.x
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 17.x
+        # write env file
+      - name: Write env file
+        run: |
+          .env << REACT_APP_BUILD_TAG={{ github.ref_name }}
+          .env << REACT_APP_BUILD_ACTOR={{ github.actor }}
+          .env << REACT_APP_BUILD_REPO={{ github.repositoryUrl }}
+          .env << REACT_APP_BUILD_REF={{ github.ref }}
+          .env << REACT_APP_BUILD_RUN={{ github.run_id }}
+        # install dependencies
       - name: Install dependencies
         run: npm install
+        # run tests
       - name: Test
         run: npm test
         env:
           CI: true
+        # build finally
       - name: Generate build
         run: npm run build
-      # Share artifact inside workflow
+        # share artifact
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1
         with:
