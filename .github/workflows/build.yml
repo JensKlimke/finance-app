@@ -30,11 +30,11 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: cache-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            cache-${{ runner.os }}-build-${{ env.cache-name }}-
+            cache-${{ runner.os }}-build-
+            cache-${{ runner.os }}-
         # install dependencies
       - name: Install dependencies
         run: npm install
