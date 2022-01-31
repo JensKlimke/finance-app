@@ -15,11 +15,11 @@ jobs:
         # write env file
       - name: Write env file
         run: |
-          .env << REACT_APP_BUILD_TAG={{ github.ref_name }}
-          .env << REACT_APP_BUILD_ACTOR={{ github.actor }}
-          .env << REACT_APP_BUILD_REPO={{ github.repositoryUrl }}
-          .env << REACT_APP_BUILD_REF={{ github.ref }}
-          .env << REACT_APP_BUILD_RUN={{ github.run_id }}
+          .env << REACT_APP_BUILD_TAG=${{ github.ref_name }}
+          .env << REACT_APP_BUILD_ACTOR=${{ github.actor }}
+          .env << REACT_APP_BUILD_REPO=${{ github.repositoryUrl }}
+          .env << REACT_APP_BUILD_REF=${{ github.ref }}
+          .env << REACT_APP_BUILD_RUN=${{ github.run_id }}
         # install dependencies
       - name: Install dependencies
         run: npm install
