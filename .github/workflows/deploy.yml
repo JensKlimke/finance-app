@@ -9,10 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         # node version
-      - name: Use Node.js 14.x
+      - name: Use Node.js 17.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 17.x
         # caching
       - name: Cache node modules
         uses: actions/cache@v2
