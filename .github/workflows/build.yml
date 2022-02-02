@@ -2,9 +2,9 @@ name: Release
 on:
   push:
     branches:
-      - main
+      - dev # deactivated by setting to dev
 jobs:
-  build:
+  deployment:
     runs-on: ubuntu-latest
     steps:
       # Check out repo
@@ -27,10 +27,10 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v2
         env:
-          cache-name: cache-node-modules
+          cache-name: cache-modules
         with:
           path: ~/.npm
-          key: cache-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             cache-${{ runner.os }}-build-${{ env.cache-name }}-
             cache-${{ runner.os }}-build-
