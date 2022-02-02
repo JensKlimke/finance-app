@@ -33,6 +33,18 @@ jobs:
         run: npm test
         env:
           CI: true
+        # build finally
+      - name: Generate build
+        run: npm run build
+        # share artifact
+      - name: Create zip archive
+        run: tar cfvz build.tar.gz build/
+        # share artifact
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v1
+        with:
+          name: finance-app-build
+          path: build
         # create tag
       - name: Bump version and push tag
         id: tag_version
@@ -43,6 +55,7 @@ jobs:
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
         with:
+          artifacts: "build.tar.gz"
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
