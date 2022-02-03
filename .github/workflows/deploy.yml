@@ -38,7 +38,7 @@ jobs:
         run: npm run build
         # share artifact
       - name: Create zip archive
-        run: tar cfvz build.tar.gz build/*
+        run: tar cfvz build.tar.gz -C build .
         # share artifact
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1
