@@ -4,21 +4,6 @@
 
 ## TODO
 
-### Before deploy
-
-* [x] Fix plot error (type 'bar' not found)
-* [ ] CI/CD pipeline
-* [ ] Minimum testing (login page available)
-* [ ] Remove credentials in login form
-* [ ] Test API in terms of security
-* [ ] Test API in terms of dependencies (see general)
-* [ ] Error logging and general logging
-  * Catch components
-  * Log function for catch block in API promises
-* [ ] Backup all data
-* [ ] Check keys in API database
-* [ ] Check files to be unused
-
 ### General
 
 * [x] General income, savings settings (to evaluate which amount is used per month from income) -> See transfers
