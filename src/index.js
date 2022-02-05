@@ -1,17 +1,24 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
+import App from "./App";
+import Auth from "./auth/Auth";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import UserAuth from "./auth/UserAuth";
+import PasswordReset from "./views/auth/passwordReset.view";
+import Password from "./views/auth/password.view";
+import './patched/fomantic-ui-css/semantic.min.css'
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Auth>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/auth" element={<UserAuth />} />
+        <Route path="/forgot-password" element={<PasswordReset />} />
+        <Route path="/reset-password" element={<Password />} />
+        <Route path="/init-password" element={<Password />} />
+        <Route path="/*" element={<App />} />
+      </Routes>
+    </BrowserRouter>
+  </Auth>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

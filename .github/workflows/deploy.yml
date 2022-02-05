@@ -27,7 +27,7 @@ jobs:
             cache-${{ runner.os }}-
         # install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm ci
         # run tests
       - name: Test
         run: npm test
@@ -35,7 +35,10 @@ jobs:
           CI: true
         # build finally
       - name: Generate build
-        run: npm run build
+        run: npm run builda
+        env:
+          REACT_APP_HOST: ${{ secrets.REACT_APP_HOST }}
+          REACT_APP_REST_HOST: ${{ secrets.REACT_APP_REST_HOST }}
         # share artifact
       - name: Create zip archive
         run: tar cfvz build.tar.gz -C build .
