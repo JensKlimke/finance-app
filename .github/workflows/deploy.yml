@@ -38,7 +38,7 @@ jobs:
           REACT_APP_VALIDATION_SECRET: ${{ secrets.REACT_APP_VALIDATION_SECRET }}
         # build finally
       - name: Generate build
-        run: npm run builda
+        run: npm run build
         env:
           REACT_APP_HOST: ${{ secrets.REACT_APP_HOST }}
           REACT_APP_REST_HOST: ${{ secrets.REACT_APP_REST_HOST }}
