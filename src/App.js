@@ -35,7 +35,10 @@ function App() {
           </div>
         )}
       </AuthContext.Consumer>
-      <span>{process.env.REACT_APP_VALIDATION_SECRET}</span>
+      {
+        process.env.REACT_APP_VALIDATION_SECRET &&
+          (<span>{process.env.REACT_APP_VALIDATION_SECRET}</span>)
+      }
     </div>
   );
 }
