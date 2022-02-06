@@ -10,7 +10,7 @@ export default function PasswordReset() {
   const onSubmit = (email) => new Promise((resolve, reject) => {
     ForgotPasswordController
       .request({email})
-      .then(e => console.log(e))
+      .then(e => console.error(e))
       .then(() => {
         setMessage(true);
         resolve();

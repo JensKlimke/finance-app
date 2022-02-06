@@ -77,7 +77,7 @@ function ProfileForm({user, onUpdate}) {
 
   const imageError = (e) => {
     setAvatar(null);
-    console.log(e)
+    console.error(e)
   }
 
   return (

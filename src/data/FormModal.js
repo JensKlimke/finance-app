@@ -51,7 +51,7 @@ function FormModal({object, controller, trigger}) {
       setError({header, message: error.content.message})
     } else {
       setError({header, message: controller.messages.unknownError});
-      console.log(Error(error));
+      console.error(error);
     }
   }
 

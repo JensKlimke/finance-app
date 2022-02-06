@@ -34,7 +34,7 @@ function Transfer ({controller}) {
           disposals: c.reduce((s, v) => s + (v.amount < 0 ? v.amount : 0.0), 0.0),
         }
       ))
-      .catch(e => console.log(e));
+      .catch(e => console.error(e));
 
   }, [controller]);
 

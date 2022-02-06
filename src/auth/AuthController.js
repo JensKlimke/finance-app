@@ -13,7 +13,6 @@ export let AuthController = {
   onUserUpdate: {},
   onTokenUpdate: {},
   onCheck: {},
-  intervalHandler: null,
 
 
   /** PUBLIC METHODS **/
@@ -50,27 +49,6 @@ export let AuthController = {
     AuthController._logout();
     AuthController.check();
 
-  },
-
-
-  /** MANAGEMENT METHODS **/
-
-  init: () => {
-
-    console.log("Starting Auth Controller")
-
-    // check session periodically
-    AuthController.intervalHandler =
-      window.setInterval(AuthController.check, 5000);
-
-    // check session initially
-    AuthController.check();
-
-  },
-
-
-  exit: () => {
-    delete AuthController.intervalHandler
   },
 
 
