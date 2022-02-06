@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import moment from "moment";
-import {Button, Container, Dimmer, Grid, Header, Label, Loader, Menu, Segment, Statistic, Table, TableRow} from "semantic-ui-react";
+import {Button, Container, Dimmer, Grid, Header, Label, Loader, Menu, Segment, Statistic, Table} from "semantic-ui-react";
 import BalancePlot from "./balance.plot";
 import FormModal from "../../data/FormModal";
 import {AccountContext, Accounts} from "./account.controller";
@@ -8,6 +8,7 @@ import ExportButton from "../../data/ExportButton";
 import ImportButton from "../../data/ImportButton";
 import DeleteButton from "../../data/DeleteButton";
 import {currency} from "../../lib/currency";
+import {percent} from "../../lib/percent";
 
 
 const OrderTypes = {
@@ -168,7 +169,11 @@ function Assets({accountController: ac, balanceController: bc, orderController: 
               <BalancePlot periods={periods} />
             </Container>
           </Segment>
-          <Segment>
+          <Segment padded>
+            <Header size='medium' dividing>Annual Return of Invest</Header>
+            <RoiTable periods={periods} />
+          </Segment>
+          <Segment padded>
             <DataSectionSub account={account} />
           </Segment>
         </Grid.Column>
@@ -243,6 +248,7 @@ function preparePeriods (balances, orders) {
         roi: b.amount / cumSum - 1.0,
         previous,
         entry,
+        year: (end ? moment(end) : moment()).format('YYYY')
       }
 
       // save last date and return
@@ -258,6 +264,67 @@ function preparePeriods (balances, orders) {
   }
 
   return {periods, periodsOrders};
+
+}
+
+
+function RoiTable ({periods}) {
+
+  // TODO: calculate average amount more accurate (on daily basis)
+  const years = {};
+  periods.forEach(p => {
+    years[p.year] = p;
+  });
+
+  const previous = {amount: 0.0, orders: 0.0};
+  const roiArray = [];
+
+  return (
+    <Table definition compact='very'>
+      <Table.Header fullWidth>
+        <Table.Row>
+          <Table.HeaderCell>Year</Table.HeaderCell>
+          <Table.HeaderCell>Rel. RoI</Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {
+          Object.values(years).map(y => {
+
+            const diffAmount = y.amount - previous.amount;
+            const orders = y.cumSum - previous.orders;
+            const roi = diffAmount - orders;
+            const refAmount = (y.amount + previous.amount) * 0.5;
+            const roiPercent = roi / refAmount;
+            roiArray.push(roiPercent);
+
+            previous.amount = y.amount;
+            previous.orders = y.cumSum;
+
+            return (
+              <Table.Row key={y.year}>
+                <Table.Cell>{y.year}</Table.Cell>
+                <Table.Cell textAlign='right'>
+                  <code>{percent(roiPercent, 1)}</code>
+                </Table.Cell>
+              </Table.Row>
+            )
+
+          })
+        }
+      </Table.Body>
+      <Table.Footer>
+        <Table.Row>
+          <Table.Cell>Average</Table.Cell>
+          <Table.Cell textAlign='right'>
+            <code>
+              {percent(roiArray.reduce((p, v) => (p + v), 0.0) / roiArray.length, 1)}
+            </code>
+          </Table.Cell>
+        </Table.Row>
+      </Table.Footer>
+    </Table>
+  )
 
 }
 
@@ -533,13 +600,13 @@ function OrdersTable ({orders}) {
             <React.Fragment key={"o" + i}>
               {
                 p.date.end && (
-                  <TableRow>
+                  <Table.Row>
                     <Table.Cell colSpan={4}>
                       <Label ribbon color='blue'>
                         {moment(p.date.end).format('ll')}
                       </Label>
                     </Table.Cell>
-                  </TableRow>
+                  </Table.Row>
                 )
               }
               {
