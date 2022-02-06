@@ -9,7 +9,7 @@ import {
   Title,
   Tooltip
 } from "chart.js";
-import { Chart, Bar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 import moment from "moment";
 
