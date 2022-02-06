@@ -1,6 +1,7 @@
 import UsersView from "../views/users/users.view";
 import ContractView from "../views/contract/contract.view";
 import TransferView from "../views/transfer/transfer.view";
+import AccountView from "../views/account/account.view";
 
 export const showPage = (page, user) => {
   // check if page is hidden
@@ -26,7 +27,7 @@ export const PageStructure = {
     element: <ContractView/>,
   },
   transfer: {
-    name: 'Money transfer',
+    name: 'Money Transfer',
     href: '/transfer',
     element: <TransferView/>,
   },
@@ -36,11 +37,11 @@ export const PageStructure = {
   //   href: '/stocks',
   //   element: <StockView/>,
   // },
-  // assets: {
-  //   name: 'Assets',
-  //   href: '/assets',
-  //   element: <AssetsView/>,
-  // },
+  assets: {
+    name: 'Assets',
+    href: '/assets',
+    element: <AccountView/>,
+  },
   // prediction: {
   //   name: 'Prediction',
   //   href: '/prediction',
