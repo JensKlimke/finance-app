@@ -36,12 +36,12 @@
 * [ ] Replace avatar with default in auth menu
 * [ ] Render version number by taking tag from release (via env var)
 
-### Assets
+### Accounts
 
 * [x] Show messages (or don't show tables), when no data is available for accounts, orders and balances
 * [ ] Currency strings in tooltips and axis labels in plots
 * [ ] Only save dates for orders and balances (with `mongoose-dateonly`?). Currently also time is stored, which makes no sense and makes the whole thing unhandy.
-* [ ] Bug: Account list doesn't update after import
+* [x] Bug: Account list doesn't update after import
 * [ ] Set order of account (asc by name?)
 * [ ] Scroll to last/current period in Assets table
 * [ ] Sticky definition column in Assets table
@@ -49,6 +49,7 @@
 * [ ] Bar chart in plot is not working in production (compilation fails)
 * [ ] When account is created, it is not selected automatically
 * [ ] When a selected account is deleted, an error occurs because account is not available anymore
+* [ ] Calculate annual return of invest on daily accuracy -> Model from literature?
 
 ### Prediction / Config
 
