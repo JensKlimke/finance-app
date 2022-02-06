@@ -55,6 +55,7 @@
 
 * [ ] percentage is currently saved as 10 for 10 %, but should be 0.1 instead
 * [ ] export/import for config
+* [ ] Setup multiple configurations with names (maybe accounts?) to have all saving accounts (like stocks, pension plan, etc.)
 
 ### Contracts
 
