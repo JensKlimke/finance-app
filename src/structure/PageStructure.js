@@ -1,4 +1,5 @@
 import UsersView from "../views/users/users.view";
+import ContractView from "../views/contract/contract.view";
 
 export const showPage = (page, user) => {
   // check if page is hidden
@@ -18,11 +19,11 @@ export const PageStructure = {
   //   href: '/',
   //   element: <Overview/>,
   // },
-  // contracts: {
-  //   name: 'Contracts',
-  //   href: '/contracts',
-  //   element: <ContractView/>,
-  // },
+  contracts: {
+    name: 'Contracts',
+    href: '/contracts',
+    element: <ContractView/>,
+  },
   // transfer: {
   //   name: 'Money transfer',
   //   href: '/transfer',

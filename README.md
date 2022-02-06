@@ -57,7 +57,8 @@
 
 ### Contracts
 
-* [ ] Bug: Statistics doesn't update after import
+* [x] Bug: Statistics doesn't update after import
+* [ ] Tags https://betterstack.dev/projects/react-tag-input/
 
 
 ### Auth and user
