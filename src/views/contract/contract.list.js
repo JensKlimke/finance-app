@@ -64,7 +64,6 @@ export function ContractsListHeader ({sort, sorted}) {
 export function ContractsListRow ({object: contract}) {
 
   // format next month
-  console.log(contract.next)
   const nextMonth = moment(Date.UTC(contract.next.year, contract.next.month, 1, 0, 0, 0)).format('MMM YY');
 
   return (
