@@ -1,7 +1,7 @@
 import React from "react";
 import {AuthContext} from "../auth/Auth";
 
-export function AuthControllerWrapper (WrappedComponent, createController) {
+export default function AuthControllerWrapper (WrappedComponent, createController) {
 
   return class extends React.Component {
 

@@ -1,6 +1,6 @@
 import React from "react";
 import Restify from "../../data/Restify";
-import {AuthControllerWrapper} from "../../data/AuthControllerWrapper";
+import AuthControllerWrapper from "../../data/AuthControllerWrapper";
 import BaseController, {ControllerMessages} from "../../data/BaseController";
 import {UserElements} from "./users.list";
 

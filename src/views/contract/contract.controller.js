@@ -1,7 +1,7 @@
 import React from "react";
 import Restify from "../../data/Restify";
 import {ContractEditModal, ContractNewModal, ContractsForm, ContractsListHeader, ContractsListRow} from "./contract.list";
-import {AuthControllerWrapper} from "../../data/AuthControllerWrapper";
+import AuthControllerWrapper from "../../data/AuthControllerWrapper";
 import BaseController, {ControllerMessages, ControllerMethods} from "../../data/BaseController";
 
 // instance definition
