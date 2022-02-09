@@ -2,7 +2,7 @@ import {Button} from "semantic-ui-react";
 import {useCallback} from "react";
 import {Language} from "../language";
 
-function ImportButton({onImport, validator}) {
+export default function ImportButton({onImport, validator}) {
 
   const handleImport = useCallback(() => {
 
@@ -39,5 +39,3 @@ const parseAndCheck = (text, validator) => new Promise((resolve, reject) => {
 
 });
 
-
-export default ImportButton;
