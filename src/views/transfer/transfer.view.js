@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {Button, Container, Grid, Header, Icon, Segment} from "semantic-ui-react";
 import {TransferContext, Transfers} from "./transfer.controller";
-import {ObjectList} from "../../data/ObjectList";
+import ObjectList from "../../data/ObjectList";
 import {DoubleLine} from "../../data/HorizontalDoubleLine";
 import ExportButton from "../../data/ExportButton";
 import ImportButton from "../../data/ImportButton";

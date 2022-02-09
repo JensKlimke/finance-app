@@ -1,6 +1,6 @@
 import React from 'react'
 import {Container, Grid, Header, Segment} from "semantic-ui-react";
-import {ObjectList} from "../../data/ObjectList";
+import ObjectList from "../../data/ObjectList";
 import {UserContext, Users} from "./user.controller";
 
 function UsersView() {

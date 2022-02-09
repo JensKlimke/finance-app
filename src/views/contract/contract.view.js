@@ -1,7 +1,7 @@
 import {Container, Grid, Header, Segment} from "semantic-ui-react";
 import {ContractsStatistics} from "./contract.statistics";
 import {ContractContext, Contracts} from "./contract.controller";
-import {ObjectList} from "../../data/ObjectList";
+import ObjectList from "../../data/ObjectList";
 import DataSection from "../../data/DataSection";
 
 

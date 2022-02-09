@@ -1,7 +1,7 @@
 import {Container, Dimmer, Grid, GridColumn, Loader, Pagination, Placeholder, Table} from "semantic-ui-react";
 import {useCallback, useEffect, useState} from "react";
 
-export function ObjectList ({controller}) {
+export default function ObjectList ({controller}) {
 
   // get elements
   const {header: ObjectListHeader, row: ObjectListRow, create: CreateObjectTrigger} = controller.elements;
