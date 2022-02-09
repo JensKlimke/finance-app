@@ -36,6 +36,7 @@
 * [ ] Replace avatar with default in auth menu
 * [ ] Render version number by taking tag from release (via env var)
 * [ ] User config 
+* [ ] Themes (dark theme)
 
 ### Accounts
 
