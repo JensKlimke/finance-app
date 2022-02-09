@@ -35,6 +35,7 @@
 * [ ] Test all pages with no/incomplete data
 * [ ] Replace avatar with default in auth menu
 * [ ] Render version number by taking tag from release (via env var)
+* [ ] User config 
 
 ### Accounts
 
@@ -62,6 +63,10 @@
 * [x] Bug: Statistics doesn't update after import
 * [ ] Tags https://betterstack.dev/projects/react-tag-input/
 
+### Stocks
+
+* [ ] A nice importer to update the data
+* [ ] Use headers for csv stock data import -> store headers in config
 
 ### Auth and user
 
