@@ -1,4 +1,3 @@
 export const currency = {
-  to: (amount) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR' }).format(amount),
-  toShort: (amount) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0}).format(amount),
+  to: (amount, n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR', maximumFractionDigits: (n !== undefined ? n : 2)}).format(amount),
 }

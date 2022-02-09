@@ -442,7 +442,7 @@ function AccountMenu({accounts, account, balances, loading, handleAccountChange}
             <Grid.Column textAlign='center' verticalAlign='middle'>
               {
                 (account && !loading) &&
-                <Statistic label='Balance' value={currency.toShort(lastBalance)} color={balanceColor} />
+                <Statistic label='Balance' value={currency.to(lastBalance, 0)} color={balanceColor} />
               }
               {
                 loading && (
