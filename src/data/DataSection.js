@@ -3,29 +3,30 @@ import ExportButton from "./ExportButton";
 import ImportButton from "./ImportButton";
 import DeleteButton from "./DeleteButton";
 import {useCallback, useEffect, useState} from "react";
+import CSVImportButton from "./CSVImportButton";
 
-export default function DataSection ({controller, lang}) {
+export default function DataSection ({controller, lang, csv}) {
 
   const [objects, setObjects] = useState([]);
 
   useEffect(() => {
-    // get balances
+    // get objects
     controller.getAll()
       .then(o => o.map(e => controller.beforeExport(e)))
       .then(o => setObjects(o))
       .catch(e => console.error(e));
   }, [controller]);
 
-  const onImportBalances = useCallback((objects) => {
-    // save imported balances
+  const onImport = useCallback((objects) => {
+    // save imported objects
     controller
       .createMany(objects.map(o => controller.beforeImport(o)))
       .then(() => controller.refresh())
       .catch(e => console.error(e))
   }, [controller]);
 
-  const onDeleteAllBalances = useCallback(() => {
-    // delete all balances
+  const onDeleteAll = useCallback(() => {
+    // delete all objects
     controller
       .deleteAll()
       .then(() => controller.refresh())
@@ -34,11 +35,12 @@ export default function DataSection ({controller, lang}) {
 
   return (
     <>
-      <Header size='medium' dividing>Manage Contracts</Header>
+      <Header size='medium' dividing>Manage {lang.header || 'Objects'}</Header>
       <Button.Group vertical labeled icon fluid>
         <ExportButton object={objects} />
-        <ImportButton onImport={onImportBalances} />
-        <DeleteButton onDelete={onDeleteAllBalances} lang={lang}/>
+        <ImportButton onImport={onImport} />
+        { csv && <CSVImportButton onImport={onImport} parseLine={csv} /> }
+        <DeleteButton onDelete={onDeleteAll} lang={lang}/>
       </Button.Group>
     </>
   )
