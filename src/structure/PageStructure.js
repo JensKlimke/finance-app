@@ -3,6 +3,7 @@ import ContractView from "../views/contract/contract.view";
 import TransferView from "../views/transfer/transfer.view";
 import AccountView from "../views/account/account.view";
 import PredictionView from "../views/prediction/prediction.view";
+import StockView from "../views/stock/stock.view";
 
 export const showPage = (page, user) => {
   // check if page is hidden
@@ -32,12 +33,11 @@ export const PageStructure = {
     href: '/transfer',
     element: <TransferView/>,
   },
-  // stocks: {
-  //   hide: true,
-  //   name: 'Stocks',
-  //   href: '/stocks',
-  //   element: <StockView/>,
-  // },
+  stocks: {
+    name: 'Stocks',
+    href: '/stocks',
+    element: <StockView/>,
+  },
   assets: {
     name: 'Assets',
     href: '/assets',
