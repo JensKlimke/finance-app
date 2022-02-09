@@ -110,13 +110,3 @@ export const ContractNewModal = () =>
   </ContractContext.Consumer>
 
 
-
-export const ContractElements = () => (
-  {
-    header: ContractsListHeader,
-    row: ContractsListRow,
-    create: ContractNewModal,
-    edit: ContractEditModal,
-    fields: ContractsForm,
-  }
-)
