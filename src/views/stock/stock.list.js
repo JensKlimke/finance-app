@@ -38,7 +38,7 @@ export function StockListHeader ({sort, sorted}) {
 
   return (
     <Table.Row>
-      <Table.HeaderCell width={1} />
+      <Table.HeaderCell width={1}>ISIN</Table.HeaderCell>
       <Table.HeaderCell width={6} sorted={sorted['name']} onClick={() => sort('name')}>
         Name
       </Table.HeaderCell>

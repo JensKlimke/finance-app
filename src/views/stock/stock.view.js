@@ -4,6 +4,7 @@ import ObjectList from "../../data/ObjectList";
 import DataSection from "../../data/DataSection";
 import {parseNumberLocale} from "../../lib/parseNumberLocale";
 import StockChart from "./stock.chart";
+import StockBalance from "./stock.balance";
 
 const defString = 'de:s;n;q;*;p;*;*;*;v;*;*;*;*;*;*;*;*';
 
@@ -43,6 +44,14 @@ export default function StockView() {
       <Container fluid style={{padding: '1em'}}>
         <Grid reversed='computer'>
           <Grid.Column mobile={16} tablet={16} computer={6}>
+            <Segment>
+              <Header size='medium' dividing>Portfolio Balance</Header>
+              <StockContext.Consumer>
+                {(controller) => controller &&
+                  <StockBalance controller={controller}/>
+                }
+              </StockContext.Consumer>
+            </Segment>
             <Segment>
               <Header size='medium' dividing>Analytics</Header>
               <StockContext.Consumer>
