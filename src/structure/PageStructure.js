@@ -2,7 +2,6 @@ import UsersView from "../views/users/users.view";
 import ContractView from "../views/contract/contract.view";
 import TransferView from "../views/transfer/transfer.view";
 import AccountView from "../views/account/account.view";
-import PredictionView from "../views/prediction/prediction.view";
 import StockView from "../views/stock/stock.view";
 
 export const showPage = (page, user) => {
@@ -43,16 +42,6 @@ export const PageStructure = {
     href: '/assets',
     element: <AccountView/>,
   },
-  prediction: {
-    name: 'Prediction',
-    href: '/prediction',
-    element: <PredictionView/>,
-  },
-  // pension: {
-  //   name: 'Pension',
-  //   href: '/pension',
-  //   element: <PensionView/>,
-  // },
   users: {
     name: 'User Management',
     href: '/users',
