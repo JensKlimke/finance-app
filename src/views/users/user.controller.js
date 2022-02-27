@@ -14,7 +14,7 @@ export const UserController = (token) => {
   const controller = new BaseController();
 
   // access methods
-  controller.create = (object) => UserRest.post(object, {path: '/manage', token});
+  controller.create = (object) => UserRest.post(object, {path: '/', token});
   controller.getList = (params) => UserRest.get({params: params, token});
   controller.save = (id, object) => UserRest.patch(object, {path: '/' + id, token});
   controller.delete = (id) => UserRest.delete({path: '/' + id, token});
