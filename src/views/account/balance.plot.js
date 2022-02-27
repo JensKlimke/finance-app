@@ -1,3 +1,4 @@
+import moment from "moment";
 import {
   Chart as ChartJS,
   BarElement,
@@ -9,9 +10,7 @@ import {
   Title,
   Tooltip
 } from "chart.js";
-import { Bar } from 'react-chartjs-2';
-
-import moment from "moment";
+import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
   CategoryScale,
@@ -81,6 +80,7 @@ export default function BalancePlot({periods}) {
   const orders = periods.map(b => b.sum);
   if(orders.filter(i => i > 0).length > 0) {
     data.datasets.push({
+      type: 'bar',
       label: 'Orders',
       backgroundColor: '#cbdce3',
       data: orders,
@@ -90,6 +90,6 @@ export default function BalancePlot({periods}) {
     },)
   }
 
-  return <Bar options={options} data={data} type='bar' />;
+  return <Line options={options} data={data} type='bar' />;
 
 }
