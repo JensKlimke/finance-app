@@ -11,10 +11,12 @@ export const AuthContext = React.createContext({
   saveUser: () => {},
 });
 
+// define rest host
+const REST_HOST = process.env.REACT_APP_REST_HOST || 'http://localhost';
 
 // rest paths
-export const AuthRest = new Restify(process.env.REACT_APP_REST_HOST + "/v1/auth");
-export const UsersRest = new Restify(process.env.REACT_APP_REST_HOST + "/v1/users");
+export const AuthRest = new Restify(REST_HOST + "/v1/auth");
+export const UsersRest = new Restify(REST_HOST + "/v1/users");
 
 // config
 const REFRESH_INTERVAL_MIN = 10;

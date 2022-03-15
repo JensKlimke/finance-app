@@ -7,8 +7,10 @@ import AmountInput from "../../data/AmountInput";
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 
+// define rest host
+const REST_HOST = process.env.REACT_APP_REST_HOST || 'http://localhost';
 
-export const BalanceRest = new Restify(process.env.REACT_APP_REST_HOST + `/v1/balances`);
+export const BalanceRest = new Restify(REST_HOST + `/v1/balances`);
 export const BalanceInstance = {amount: 0.0, date: moment(new Date()).format('YYYY-MM-DD'), description: ''};
 
 export const BalanceController = (token) => {

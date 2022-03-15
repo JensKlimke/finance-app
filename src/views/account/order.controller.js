@@ -7,8 +7,10 @@ import AmountInput from "../../data/AmountInput";
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 
+// define rest host
+const REST_HOST = process.env.REACT_APP_REST_HOST || 'http://localhost';
 
-export const OrderRest = new Restify(process.env.REACT_APP_REST_HOST + `/v1/orders`);
+export const OrderRest = new Restify(REST_HOST + `/v1/orders`);
 export const OrderInstance = {amount: 0.0, date: moment(new Date()).format('YYYY-MM-DD'), type: 'purchase', description: ''};
 
 const update = (o) => {

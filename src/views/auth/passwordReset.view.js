@@ -3,6 +3,9 @@ import PasswordResetForm from "./passwordReset.form";
 import {ForgotPasswordController} from "./password.controller";
 import {useState} from "react";
 
+// define rest host
+const APP_HOST = process.env.REACT_APP_HOST || 'http://localhost';
+
 export default function PasswordReset() {
 
   const [message, setMessage] = useState(null);
@@ -35,7 +38,7 @@ export default function PasswordReset() {
             {message && (
               <Segment>
                 <Message success content="An email has been sent with a link to reset your password." />
-                <Button as={'a'} href={`${process.env.REACT_APP_HOST}/auth`}>Login</Button>
+                <Button as={'a'} href={`${APP_HOST}/auth`}>Login</Button>
               </Segment>
             )}
           </GridColumn>

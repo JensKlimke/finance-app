@@ -4,9 +4,12 @@ import {ContractEditModal, ContractNewModal, ContractsForm, ContractsListHeader,
 import AuthControllerWrapper from "../../data/AuthControllerWrapper";
 import BaseController, {ControllerMessages, ControllerMethods} from "../../data/BaseController";
 
+// define rest host
+const REST_HOST = process.env.REACT_APP_REST_HOST || 'http://localhost';
+
 // instance definition
 export const ContractContext = React.createContext({});
-export const ContractRest = new Restify(process.env.REACT_APP_REST_HOST + `/v1/contracts`);
+export const ContractRest = new Restify(REST_HOST + `/v1/contracts`);
 export const ContractInstance = {shared: false, name: '', creditor: '', amount: '0.0', months: Array(12).fill(true)};
 
 // define controller

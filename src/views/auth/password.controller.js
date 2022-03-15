@@ -1,6 +1,10 @@
 import Restify from "../../data/Restify";
 import BaseController from "../../data/BaseController";
 
+// define rest host
+const REST_HOST = process.env.REACT_APP_REST_HOST || 'http://localhost';
+
+
 // function to create contract controller
 export const Controller = (type) => {
 
@@ -8,7 +12,7 @@ export const Controller = (type) => {
   const controller = new BaseController();
 
   // create rest and factories
-  const rest = new Restify(process.env.REACT_APP_REST_HOST + `/v1/auth`);
+  const rest = new Restify(REST_HOST + `/v1/auth`);
 
   // methods
   controller.requestWithToken = (token, object) => rest.post(object, {params: {token}, path: `/${type}`});

@@ -4,9 +4,8 @@ import {TransferElements} from "./transfer.list";
 import Restify from "../../data/Restify";
 import React from "react";
 
-
 export const TransferContext = React.createContext({});
-export const TransferRest = new Restify(process.env.REACT_APP_REST_HOST + `/v1/transfers`);
+export const TransferRest = new Restify(process.env.REST_HOST + `/v1/transfers`);
 export const TransferInstance = {amount: '0.0', description: ''};
 
 export const TransferController = (token) => {

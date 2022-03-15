@@ -5,6 +5,9 @@ import {InitializePasswordController, ResetPasswordController} from "./password.
 import Restify from "../../data/Restify";
 import PasswordForm from "./password.form";
 
+// define rest host
+const APP_HOST = process.env.REACT_APP_HOST || 'http://localhost';
+
 const TokenTypes = {
   none: 0,
   resetPassword: 1,
@@ -81,7 +84,7 @@ function Password() {
       success: true,
       error: false,
       icon: 'check circle outline',
-      onDismiss: () => window.location.href = `${process.env.REACT_APP_HOST}/auth`,
+      onDismiss: () => window.location.href = `${APP_HOST}/auth`,
       header: type === TokenTypes.initPassword ? 'Password has been created.' : 'Password has been reset.',
       content: message.success
     }
@@ -90,7 +93,7 @@ function Password() {
       success: false,
       error: true,
       icon: 'frown outline',
-      onDismiss: () => window.location.href = process.env.REACT_APP_HOST,
+      onDismiss: () => window.location.href = APP_HOST,
       header: 'That went wrong',
       content: message.auth
     }

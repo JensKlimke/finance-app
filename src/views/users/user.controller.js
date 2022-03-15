@@ -4,9 +4,12 @@ import AuthControllerWrapper from "../../data/AuthControllerWrapper";
 import BaseController, {ControllerMessages} from "../../data/BaseController";
 import {UserElements} from "./users.list";
 
+// define rest host
+const REST_HOST = process.env.REACT_APP_REST_HOST || 'http://localhost';
+
 // instance definition
 export const UserContext = React.createContext({});
-export const UserRest = new Restify(process.env.REACT_APP_REST_HOST + `/v1/users`);
+export const UserRest = new Restify(REST_HOST + `/v1/users`);
 
 export const UserController = (token) => {
 

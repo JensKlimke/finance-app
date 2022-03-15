@@ -2,6 +2,8 @@ import React from 'react'
 import {Button, Segment} from 'semantic-ui-react'
 import {AuthContext} from "./Auth";
 
+// define rest host
+const APP_HOST = process.env.REACT_APP_HOST || 'http://localhost';
 
 class LogoutForm extends React.Component {
 
@@ -42,7 +44,7 @@ class LogoutForm extends React.Component {
     return (
       <Segment loading={loading}>
         { this.state.client && <Button as='a' primary href={this.state.client.redirect}>{this.state.client.requester}</Button> }
-        { !this.state.client && <Button as='a' primary href={process.env.REACT_APP_HOST}>Start</Button> }
+        { !this.state.client && <Button as='a' primary href={APP_HOST}>Start</Button> }
         <Button onClick={this.context.logout}>Logout</Button>
       </Segment>
     );

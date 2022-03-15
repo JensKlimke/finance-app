@@ -4,9 +4,12 @@ import {StockEditModal, StockForm, StockListHeader, StockListRow, StockNewModal}
 import AuthControllerWrapper from "../../data/AuthControllerWrapper";
 import BaseController, {ControllerMessages, ControllerMethods} from "../../data/BaseController";
 
+// define rest host
+const REST_HOST = process.env.REACT_APP_REST_HOST || 'http://localhost';
+
 // instance definition
 export const StockContext = React.createContext({});
-export const StockRest = new Restify(process.env.REACT_APP_REST_HOST + `/v1/stocks`);
+export const StockRest = new Restify(REST_HOST + `/v1/stocks`);
 export const StockInstance = {symbol: '', name: '', quantity: 0, purchase: 0, value: 0};
 
 // define controller

@@ -6,9 +6,11 @@ import {Form} from "semantic-ui-react";
 import {BalanceController} from "./balance.controller";
 import {OrderController} from "./order.controller";
 
+// define rest host
+const REST_HOST = process.env.REACT_APP_REST_HOST || 'http://localhost';
 
 export const AccountContext = React.createContext({});
-export const AccountRest = new Restify(process.env.REACT_APP_REST_HOST + `/v1/accounts`);
+export const AccountRest = new Restify(REST_HOST + `/v1/accounts`);
 export const AccountInstance = {name: ''};
 
 export const AccountController = (token) => {

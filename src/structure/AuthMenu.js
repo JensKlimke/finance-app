@@ -3,6 +3,9 @@ import LoginMenu from "./LoginMenu";
 import React from "react";
 import {AuthContext} from "../auth/Auth";
 
+// define rest host
+const APP_HOST = process.env.REACT_APP_HOST || 'http://localhost';
+
 
 class AuthMenu extends React.Component {
 
@@ -13,14 +16,14 @@ class AuthMenu extends React.Component {
     super(props);
     // state
     this.state = {
-      authLink: new URL(process.env.REACT_APP_HOST + "/auth").toString()
+      authLink: new URL(APP_HOST + "/auth").toString()
     }
   }
 
   componentDidMount() {
 
     // create url object
-    const authURL = new URL(process.env.REACT_APP_HOST + "/auth");
+    const authURL = new URL(APP_HOST + "/auth");
     authURL.search = new URLSearchParams({
       redirect: new URL(window.location.href),
       requester: "FinanceApp"

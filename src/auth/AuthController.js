@@ -1,12 +1,14 @@
 import Restify from "../data/Restify";
 import Sessify from "../data/Sessify";
 
+// define rest host
+const REST_HOST = process.env.REACT_APP_REST_HOST || 'http://localhost';
 
 export let AuthController = {
 
-  userRest: new Restify(process.env.REACT_APP_REST_HOST + "/v1/users/%this_user_id%"),
-  refreshRest: new Restify(process.env.REACT_APP_REST_HOST + "/v1/auth/refresh-tokens"),
-  loginRest: new Restify(process.env.REACT_APP_REST_HOST + "/v1/auth/login"),
+  userRest: new Restify(REST_HOST + "/v1/users/%this_user_id%"),
+  refreshRest: new Restify(REST_HOST + "/v1/auth/refresh-tokens"),
+  loginRest: new Restify(REST_HOST + "/v1/auth/login"),
   session: Sessify,
   user: null,
   accessToken: null,
