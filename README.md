@@ -1,46 +1,47 @@
-# Getting Started with Create React App
+# FinApp 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## TODOs
 
-In the project directory, you can run:
+### Structure
+- [ ] Topbar Nav as full page container, with "overflow-y: scroll"
+- [ ] Headers for Nav sections
+- [ ] Align state management of forms (useReducer, see Register.page)
 
-### `npm start`
+### New Features
+- [ ] Steuerfreibeträge für Konten
+- [ ] Sparziele
+- [ ] ...
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### API
+- [ ] Return {code: 200, object: {...}} from api when successful and handle code correctly
+- [ ] Remove all unnecessary information from API -> Calculate in frontend
+- [ ] Change log and historical data for entries
+- [ ] Put reference in query and not in body of entry (e.g. order: account should be set as query parameter)
+- [ ] When sub-data is loaded (e.g. orders for an account ID), set reference (account ID) in response on the level of page, results, ... 
+  - {results: Array, page: 1, limit: 100, totalPages: 1, totalResults: 73, reference: 0abcdef...}
+  - Can be used to check if the data contains to the right reference
 
-### `npm test`
+### Authentication
+- [x] check for renew in time interval (store expire date for that?)
+- [x] User Management
+- [ ] Password reset etc.
+- [ ] Profile 
+- [x] Only delete session cookie, when refresh token invalid
+ 
+### Entries
+- [ ] Make sortable and filterable
+- [ ] Hard coded text to dictionary per entry page
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Contracts
+- [ ] Statistics of contract on hover (e.g. relative amount of the contract per month and per year) 
+- [ ] Update statistics, when contract is updated 
 
-### `npm run build`
+### Transfers
+- [ ] Restructure transfers code
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Assets
+- [ ] Balances should be requestable by date and account
+- [ ] Charts: Legend with jsx
+- [ ] Charts: Tooltips with year etc.
