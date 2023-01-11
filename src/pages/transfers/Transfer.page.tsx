@@ -45,12 +45,14 @@ const TransferContent = () => {
           </Card>
         </Col>
         <Col lg={4}>
-          <Card className='mb-4'>
-            <Card.Header>Balance</Card.Header>
-            <Card.Body>
-              <BalanceTable />
-            </Card.Body>
-          </Card>
+          {data.totalResults > 0 && (
+            <Card className='mb-4'>
+              <Card.Header>Balance</Card.Header>
+              <Card.Body>
+                <BalanceTable />
+              </Card.Body>
+            </Card>
+          )}
           <Card>
             <Card.Header>Data Management</Card.Header>
             <Card.Body>
