@@ -246,7 +246,7 @@ function CardsComponent ({config, state, onRowClick} : DataComponentProps) {
               <tbody>
               { config.cols.map((c, j) => (
                 <tr key={j}>
-                  <td key={i}>{c.label}</td>
+                  <td key={i} width='50%'>{c.label}</td>
                   <td className={c.className || ''}>{c.content(d, state.results, i, state.page, state.totalPages)}</td>
                 </tr>
               )) }
