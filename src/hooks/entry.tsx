@@ -15,7 +15,7 @@ export type DataColType = {
   label : ContentElement
   content : (row : any, data : any[], index : number, page ?: number, noOfPages ?: number) => ContentElement
   className ?: string
-  sort ?: (a : any, b : any) => number
+  sort ?: number
   width ?: number
 }
 
@@ -24,6 +24,13 @@ export type DataComponentConfigType = {
   footer ?: (row : any, data : any[], index : number, page ?: number, noOfPages ?: number) => ContentElement
   cols : DataColType[]
 }
+
+export type DataSortType = {
+  label: string
+  callback: (a : any, b : any) => number
+}
+
+export type DataSortConfig = DataSortType[];
 
 export type OnRowClickType =
   (row : any, data : any[], index : number, page ?: number, noOfPages ?: number) => void

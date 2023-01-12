@@ -1,38 +1,37 @@
-import {Button, Card, Pagination, Table} from 'react-bootstrap';
-import {DataComponentConfigType, DataType, OnRowClickType} from "../../hooks/entry";
+import {Button, Card, Dropdown, Pagination, Table} from 'react-bootstrap';
+import {DataComponentConfigType, DataSortConfig, DataType, OnRowClickType} from "../../hooks/entry";
 import {useEffect, useReducer} from "react";
-import {BsArrowDown, BsArrowUp, BsDot, BsPlusCircle,} from "react-icons/bs";
+import {BsArrowDown, BsArrowUp, BsDot, BsPlusCircle, BsSortAlphaDown} from "react-icons/bs";
 
 const NUMBER_ELEMENTS_PER_PAGE = Number.parseInt(process.env.REACT_APP_TABLE_NUMBER_ELEMENTS_PER_PAGE || '') || 15;
 
 
 type StateType = {
   sort: {
-    row: number
+    field: number
     asc: boolean
   } | undefined;
-  sortCallback: (a : any, b : any) => number
   page: number
   totalPages: number
   display: any[]
   results: any[]
   totalResults : number
+  sortConfig: DataSortConfig | undefined
 }
 
 const stateDefault : StateType = {
   sort: undefined,
-  sortCallback: () => -1,
   page: 0,
   totalPages: 0,
   display: [],
   results: [],
   totalResults: 0,
+  sortConfig: undefined
 }
 
 type ActionType = {
   action: string,
   payload: any
-  callback?: (a : any, b : any) => number
 };
 
 function dataReducer(data: StateType, p: ActionType) : StateType {
@@ -52,24 +51,27 @@ function dataReducer(data: StateType, p: ActionType) : StateType {
       else
         state.page = p.payload;
       break;
+    case 'SET_SORT_CONFIG':
+      state.sortConfig = [...(p.payload as DataSortConfig)];
+      break;
     case 'SORT':
       // save sort
       if (!state.sort)
-        state.sort = {row: p.payload, asc: true};
-      else if (state.sort.row === p.payload && state.sort.asc)
-        state.sort = {row: state.sort.row, asc: false};
-      else if (state.sort.row === p.payload && !state.sort.asc)
+        state.sort = {field: p.payload, asc: true};
+      else if (state.sort.field === p.payload && state.sort.asc)
+        state.sort = {field: state.sort.field, asc: false};
+      else if (state.sort.field === p.payload && !state.sort.asc)
         state.sort = undefined;
       else
-        state.sort = {row: p.payload, asc: true};
-      // set callback
-      state.sortCallback = p.callback || (() => -1);
+        state.sort = {field: p.payload, asc: true};
       break;
   }
   // sort data
   state.display = [...state.results];
-  if (state.sort)
-    state.display.sort((a, b) => state?.sort?.asc ? state.sortCallback(a, b) : state.sortCallback(b, a));
+  if (state.sort && state.sortConfig) {
+    const sort = state.sortConfig[state.sort.field].callback;
+    state.display.sort((a, b) => state?.sort?.asc ? sort(a, b) : sort(b, a));
+  }
   // calculate slice indexes
   const from = state.page * NUMBER_ELEMENTS_PER_PAGE;
   const to = (state.page + 1) * NUMBER_ELEMENTS_PER_PAGE;
@@ -82,17 +84,21 @@ function dataReducer(data: StateType, p: ActionType) : StateType {
 export type DataTableProps = {
   tableConfig?: DataComponentConfigType
   cardConfig?: DataComponentConfigType
+  sortConfig?: DataSortConfig
   data: DataType
   onRowClick: OnRowClickType
   onAdd?: () => void
 }
 
-export default function DataTable({tableConfig, cardConfig, data, onRowClick, onAdd}: DataTableProps) {
+export default function DataTable({tableConfig, cardConfig, sortConfig, data, onRowClick, onAdd}: DataTableProps) {
   // states
   const [state, dispatch] = useReducer(dataReducer, stateDefault);
   // effects
   useEffect(() => {
-    dispatch({action: 'SET_RESULTS', payload: data.results})
+    dispatch({action: 'SET_SORT_CONFIG', payload: sortConfig});
+  }, [sortConfig]);
+  useEffect(() => {
+    dispatch({action: 'SET_RESULTS', payload: data.results});
   }, [data.results]);
   // render table
   return (
@@ -119,7 +125,22 @@ export default function DataTable({tableConfig, cardConfig, data, onRowClick, on
           {
             (state.totalResults === 0) && <p className='text-center text-muted mt-3'>Nothing to be shown!</p>
           }
-          <span>&nbsp;</span>
+          {sortConfig &&
+            <Dropdown>
+              <Dropdown.Toggle>
+                <BsSortAlphaDown />
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {
+                  sortConfig.map((c, i) => (
+                    <Dropdown.Item key={i} onClick={() => dispatch({action: 'SORT', payload: i})}>
+                      {state.sort && state.sort.field === i ? (state.sort.asc ? <BsArrowDown/> : <BsArrowUp/>) : <BsDot />}&nbsp;{c.label}
+                    </Dropdown.Item>
+                  ))
+                }
+              </Dropdown.Menu>
+            </Dropdown>
+          }
         </div>
       )}
       { (state.totalResults > 0) && (
@@ -130,7 +151,7 @@ export default function DataTable({tableConfig, cardConfig, data, onRowClick, on
                 <TableComponent
                   config={tableConfig}
                   state={state}
-                  updateSort={(i) => dispatch({action: 'SORT', payload: i, callback: tableConfig?.cols[i]?.sort})}
+                  updateSort={(i) => dispatch({action: 'SORT', payload: i})}
                   onRowClick={onRowClick}
                 />
               }
@@ -140,7 +161,7 @@ export default function DataTable({tableConfig, cardConfig, data, onRowClick, on
                 <CardsComponent
                   config={cardConfig}
                   state={state}
-                  updateSort={(i) => dispatch({action: 'SORT', payload: i, callback: cardConfig?.cols[i]?.sort})}
+                  updateSort={(i) => dispatch({action: 'SORT', payload: i})}
                   onRowClick={onRowClick}
                 />
               }
@@ -156,9 +177,10 @@ export default function DataTable({tableConfig, cardConfig, data, onRowClick, on
 }
 
 interface DataComponentProps {
-  config: DataComponentConfigType,
-  state: StateType,
-  updateSort : (i: number) => void,
+  config: DataComponentConfigType
+  sortConfig?: DataSortConfig
+  state: StateType
+  updateSort: (i: number) => void
   onRowClick: OnRowClickType
 }
 
@@ -180,10 +202,10 @@ function TableComponent({config, state, updateSort, onRowClick} : DataComponentP
             return (
               <th
                 {...props}
-                onClick={() => updateSort(i)}
+                onClick={() => updateSort(c.sort || 0)}
                 role='button'
               >
-                {c.label}&nbsp;{state.sort && state.sort.row === i ? (state.sort.asc ? <BsArrowDown/> : <BsArrowUp/>) : <BsDot />}
+                {c.label}&nbsp;{state.sort && state.sort.field === c.sort ? (state.sort.asc ? <BsArrowDown/> : <BsArrowUp/>) : <BsDot />}
               </th>
             );
           } else {

@@ -1,7 +1,7 @@
 import DataTable from "../../components/display/DataTable";
 import {ButtonGroup, Card, Col, Container, Row} from "react-bootstrap";
 import StockProvider, {StockContext, useStocks} from "./Stocks.context";
-import {StockCols, StockRows} from "./Stocks.table";
+import {StockCols, StockRows, StockSort} from "./Stocks.table";
 import EntryFormModal from "../../components/forms/EntryFormModal";
 import StocksForm from "./Stocks.form";
 import ImportButton from "../../components/forms/ImportButton";
@@ -35,6 +35,7 @@ const StocksContent = () => {
               <DataTable
                 tableConfig={StockCols}
                 cardConfig={StockRows}
+                sortConfig={StockSort}
                 data={data}
                 onRowClick={(d) => edit(d.id)}
                 onAdd={() => edit('')}

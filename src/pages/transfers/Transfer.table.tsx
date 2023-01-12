@@ -1,4 +1,4 @@
-import {DataComponentConfigType} from "../../hooks/entry";
+import {DataComponentConfigType, DataSortConfig} from "../../hooks/entry";
 import {BsArrowLeft, BsArrowLeftRight, BsArrowRight} from "react-icons/bs";
 import CurrencyCell from "../../components/display/CurrencyCell";
 import {TransferType} from "./Transfer.context";
@@ -12,19 +12,19 @@ export const TransferCols : DataComponentConfigType = {
           <BsArrowRight className='text-success' /> :
           <BsArrowLeft className='text-danger' />
       ),
-      sort: (a : TransferType, b : TransferType) => (a.amount - b.amount),
+      sort: 0,
       className: 'align-middle text-center'
     },
     {
       label: 'Description',
       content: (row : any) => <span>{row.description}</span>,
-      sort: (a : TransferType, b : TransferType) => a.description.localeCompare(b.description),
+      sort: 1,
       className: 'align-middle'
     },
     {
       label: 'Transfer Amount',
       content: (row : any) => <CurrencyCell colored amount={row.amount} />,
-      sort: (a : TransferType, b : TransferType) => (a.amount - b.amount),
+      sort: 2,
       className: 'align-middle text-end'
     },
   ]
@@ -48,3 +48,18 @@ export const TransferRows : DataComponentConfigType = {
     },
   ]
 }
+
+export const TransfersSort : DataSortConfig = [
+  {
+    label: 'Amount',
+    callback: (a : TransferType, b : TransferType) => (a.amount - b.amount),
+  },
+  {
+    label: 'Description',
+    callback: (a : TransferType, b : TransferType) => a.description.localeCompare(b.description),
+  },
+  {
+    label: 'Transfer Amount',
+    callback: (a : TransferType, b : TransferType) => (a.amount - b.amount),
+  },
+];

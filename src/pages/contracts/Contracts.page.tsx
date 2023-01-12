@@ -4,7 +4,7 @@ import ContentMessage from "../../components/display/ContentMessage";
 import EntryFormModal from "../../components/forms/EntryFormModal";
 import {MetricsTable} from "./MetricsTable";
 import {MonthsTable} from "./MonthsTable";
-import {ContractCols, ContractRows} from "./Contracts.table";
+import {ContractCols, ContractRows, ContractSort} from "./Contracts.table";
 import ContractsForm from "./Contracts.form";
 import ContractProvider, {ContractContext, useContracts, useContractStatistics} from "./Contracts.context";
 import DataTable from "../../components/display/DataTable";
@@ -41,6 +41,7 @@ const ContractContent = () => {
               <DataTable
                 tableConfig={ContractCols}
                 cardConfig={ContractRows}
+                sortConfig={ContractSort}
                 data={contractsData}
                 onRowClick={(d) => edit(d.id)}
                 onAdd={() => edit('')}

@@ -2,7 +2,7 @@ import React, {useMemo} from "react";
 import DataTable from "../../components/display/DataTable";
 import {ButtonGroup, Card, Col, Container, Row, Table} from "react-bootstrap";
 import TransferProvider, {TransferContext, useTransfers} from "./Transfer.context";
-import {TransferCols, TransferRows} from "./Transfer.table";
+import {TransferCols, TransferRows, TransfersSort} from "./Transfer.table";
 import {BsArrowLeft, BsArrowRight, BsCash} from "react-icons/bs";
 import CurrencyCell from "../../components/display/CurrencyCell";
 import ImportButton from "../../components/forms/ImportButton";
@@ -37,6 +37,7 @@ const TransferContent = () => {
               <DataTable
                 tableConfig={TransferCols}
                 cardConfig={TransferRows}
+                sortConfig={TransfersSort}
                 data={data}
                 onRowClick={(d) => edit(d.id)}
                 onAdd={() => edit('')}

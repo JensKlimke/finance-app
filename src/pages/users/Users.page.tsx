@@ -4,7 +4,7 @@ import ContentMessage from "../../components/display/ContentMessage";
 import EntryFormModal from "../../components/forms/EntryFormModal";
 import DataTable from "../../components/display/DataTable";
 import UserProvider, {UserContext, useUsers} from "./Users.context";
-import {UserCols, UserRows} from "./Users.table";
+import {UserCols, UserRows, UsersSort} from "./Users.table";
 import UsersForm from "./Users.form";
 import {useAuth} from "../../components/auth/AuthContext";
 
@@ -38,6 +38,7 @@ const UserContent = () => {
               <DataTable
                 tableConfig={UserCols}
                 cardConfig={UserRows}
+                sortConfig={UsersSort}
                 data={usersData}
                 onRowClick={(d) => edit(d.id)}
                 onAdd={() => edit('')}

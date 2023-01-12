@@ -1,6 +1,6 @@
 import {UserType} from "./Users.context";
 import {BsCheck, BsCheckSquare} from "react-icons/bs";
-import {DataComponentConfigType} from "../../hooks/entry";
+import {DataComponentConfigType, DataSortConfig} from "../../hooks/entry";
 import React from "react";
 
 
@@ -9,25 +9,25 @@ export const UserCols : DataComponentConfigType = {
     {
       label: 'Role',
       content: (row : UserType) => <strong>{row.role === 'user' ? 'U' : 'A'}</strong>,
-      sort: (a : UserType, b : UserType) => a.name.localeCompare(b.name),
+      sort: 0,
       className: 'align-middle text-center',
     },
     {
       label: 'Name',
       content: (row : UserType) => <span>{row.name}</span>,
-      sort: (a : UserType, b : UserType) => a.name.localeCompare(b.name),
+      sort: 1,
       className: 'align-middle',
     },
     {
       label: 'Email',
       content: (row : UserType) => <a href={`mailto://${row.email}`}>{row.email}</a>,
-      sort: (a : UserType, b : UserType) => a.email.localeCompare(b.email),
+      sort: 2,
       className: 'align-middle',
     },
     {
       label: 'Verified',
       content: (row : UserType) => row.isEmailVerified ? <BsCheck /> : <></>,
-      sort: (a : UserType) => a ? -1 : 1,
+      sort: 3,
       className: 'align-middle text-center',
     },
   ]
@@ -49,3 +49,23 @@ export const UserRows : DataComponentConfigType = {
     }
   ]
 };
+
+
+export const UsersSort : DataSortConfig = [
+  {
+    label: 'Role',
+    callback: (a : UserType, b : UserType) => a.name.localeCompare(b.name),
+  },
+  {
+    label: 'Name',
+    callback: (a : UserType, b : UserType) => a.name.localeCompare(b.name),
+  },
+  {
+    label: 'Email',
+    callback: (a : UserType, b : UserType) => a.email.localeCompare(b.email),
+  },
+  {
+    label: 'Verified',
+    callback: (a : UserType) => a ? -1 : 1,
+  },
+]
