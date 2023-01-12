@@ -23,7 +23,10 @@ export type DataSortType = {
   callback: (a : any, b : any) => number
 }
 
-export type DataSortConfig = DataSortType[];
+export type DataSortConfig = {
+  fields: DataSortType[],
+  filterText: (data : any) => string
+};
 
 export type OnRowClickType =
   (row : any, data : any[], index : number, page ?: number, noOfPages ?: number) => void

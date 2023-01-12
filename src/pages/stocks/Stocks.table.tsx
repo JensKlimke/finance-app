@@ -62,25 +62,28 @@ export const StockRows : DataComponentConfigType = {
   ]
 }
 
-export const StockSort : DataSortConfig = [
-  {
-    label: 'Symbol',
-    callback: (a : StockType, b : StockType) => (a.symbol.localeCompare(b.symbol)),
-  },
-  {
-    label: 'Name',
-    callback: (a : StockType, b : StockType) => (a.name.localeCompare(b.name)),
-  },
-  {
-    label: 'Quantity',
-    callback: (a : StockType, b : StockType) => (a.quantity - b.quantity),
-  },
-  {
-    label: 'Purchase value',
-    callback: (a : StockType, b : StockType) => (a.purchase - b.purchase),
-  },
-  {
-    label: 'Current value',
-    callback: (a : StockType, b : StockType) => (a.value - b.value),
-  },
-]
+export const StockSort : DataSortConfig = {
+  fields: [
+    {
+      label: 'Symbol',
+      callback: (a : StockType, b : StockType) => (a.symbol.localeCompare(b.symbol)),
+    },
+    {
+      label: 'Name',
+      callback: (a : StockType, b : StockType) => (a.name.localeCompare(b.name)),
+    },
+    {
+      label: 'Quantity',
+      callback: (a : StockType, b : StockType) => (a.quantity - b.quantity),
+    },
+    {
+      label: 'Purchase value',
+      callback: (a : StockType, b : StockType) => (a.purchase - b.purchase),
+    },
+    {
+      label: 'Current value',
+      callback: (a : StockType, b : StockType) => (a.value - b.value),
+    },
+  ],
+  filterText: (row : StockType) => `${row.symbol} ${row.name} ${row.quantity} ${row.purchase} ${row.value}`
+}

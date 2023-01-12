@@ -7,7 +7,7 @@ import CurrencyCell from "../../components/display/CurrencyCell";
 import {DataComponentConfigType, DataSortConfig} from "../../hooks/entry";
 import React from "react";
 
-const dateSort = (a : ContractType, b : ContractType) => {
+const dateSort = (a: ContractType, b: ContractType) => {
   // check
   if (!b.next) return 1;
   if (!a.next) return -1;
@@ -18,13 +18,13 @@ const dateSort = (a : ContractType, b : ContractType) => {
   return dateA.getTime() - dateB.getTime();
 }
 
-export const ContractCols : DataComponentConfigType = {
+export const ContractCols: DataComponentConfigType = {
   cols: [
     {
       label: 'Description',
-      content: (row : ContractType) => (
+      content: (row: ContractType) => (
         <>
-          <span>{(row.shared ? <><BsPeopleFill />&nbsp;</> : '')}{row.name}</span><br />
+          <span>{(row.shared ? <><BsPeopleFill/>&nbsp;</> : '')}{row.name}</span><br/>
           <i className='text-muted'>{row.creditor}</i>
         </>
       ),
@@ -34,35 +34,35 @@ export const ContractCols : DataComponentConfigType = {
     },
     {
       label: 'Contract Amount',
-      content: (row : ContractType) => <CurrencyCell amount={row.amount} />,
+      content: (row: ContractType) => <CurrencyCell amount={row.amount}/>,
       className: 'align-middle text-end',
       width: 20,
       sort: 2
     },
     {
       label: 'Annual Amount',
-      content: (row : ContractType) => <CurrencyCell amount={row.annualAmount || 0.0} />,
+      content: (row: ContractType) => <CurrencyCell amount={row.annualAmount || 0.0}/>,
       className: 'align-middle text-end',
       width: 20,
       sort: 3
     },
     {
       label: 'Next',
-      content: (row : ContractType) => {
+      content: (row: ContractType) => {
         // check
         if (!row.next)
           return 'n/a';
         // calculate date
         const date = new Date(row.next.year, row.next.month, 1, 0, 0, 0, 0);
         // tooltip
-        const tooltip = (props : any) => (
+        const tooltip = (props: any) => (
           <Tooltip {...props}>
             {`${moment(date).fromNow()} (${moment(date).format('MMMM YYYY')})`}
           </Tooltip>
         );
         // render
         return (
-          <OverlayTrigger placement='left' delay={{ show: 250, hide: 400 }} overlay={tooltip}>
+          <OverlayTrigger placement='left' delay={{show: 250, hide: 400}} overlay={tooltip}>
           <span>
             <MonthCircle months={row.months} next={row.next.month}/>
           </span>
@@ -77,27 +77,27 @@ export const ContractCols : DataComponentConfigType = {
 };
 
 
-export const ContractRows : DataComponentConfigType = {
-  title: (row : ContractType) => <>{(row.shared ? <><BsPeople />&nbsp;&nbsp;</> : '')}{row.name}</>,
+export const ContractRows: DataComponentConfigType = {
+  title: (row: ContractType) => <>{(row.shared ? <><BsPeople/>&nbsp;&nbsp;</> : '')}{row.name}</>,
   cols: [
     {
       label: 'Creditor',
-      content: (row : ContractType) => row.creditor,
+      content: (row: ContractType) => row.creditor,
       className: 'text-end',
     },
     {
       label: 'Contract Amount',
-      content: (row : ContractType) => <CurrencyCell amount={row.amount} />,
+      content: (row: ContractType) => <CurrencyCell amount={row.amount}/>,
       className: 'text-end',
     },
     {
       label: 'Annual Amount',
-      content: (row : ContractType) => <CurrencyCell amount={row.annualAmount || 0.0} />,
+      content: (row: ContractType) => <CurrencyCell amount={row.annualAmount || 0.0}/>,
       className: 'text-end',
     },
     {
       label: 'Next due month',
-      content: (row : ContractType) => {
+      content: (row: ContractType) => {
         if (!row.next)
           return 'n/a';
         // calculate date
@@ -109,25 +109,36 @@ export const ContractRows : DataComponentConfigType = {
   ]
 };
 
-export const ContractSort : DataSortConfig = [
-  {
-    label: 'Name',
-    callback: (a : ContractType, b : ContractType) => a.name.localeCompare(b.name),
-  },
-  {
-    label: 'Creditor',
-    callback: (a : ContractType, b : ContractType) => a.creditor.localeCompare(b.creditor),
-  },
-  {
-    label: 'Amount',
-    callback: (a : ContractType, b : ContractType) => (a.amount - b.amount),
-  },
-  {
-    label: 'Annual Amount',
-    callback: (a : ContractType, b : ContractType) => ((a.annualAmount || 0.0) - (b.annualAmount || 0.0)),
-  },
-  {
-    label: 'Due Date',
-    callback: dateSort,
-  },
-]
+export const ContractSort: DataSortConfig = {
+  fields:
+    [
+      {
+        label: 'Name',
+        callback: (a: ContractType, b: ContractType) => a.name.localeCompare(b.name),
+      },
+      {
+        label: 'Creditor',
+        callback: (a: ContractType, b: ContractType) => a.creditor.localeCompare(b.creditor),
+      },
+      {
+        label: 'Amount',
+        callback: (a: ContractType, b: ContractType) => (a.amount - b.amount),
+      },
+      {
+        label: 'Annual Amount',
+        callback: (a: ContractType, b: ContractType) => ((a.annualAmount || 0.0) - (b.annualAmount || 0.0)),
+      },
+      {
+        label: 'Due Date',
+        callback: dateSort,
+      },
+    ],
+  filterText: (a : ContractType) => {
+    let next = ''
+    if (a.next) {
+      const date = new Date(a.next.year, a.next.month, 1, 0, 0, 0, 0);
+      next = ` ${moment(date).format('MMMM YYYY')}`;
+    }
+    return `${a.name} ${a.creditor} ${a.amount} ${a.annualAmount}${next}`;
+  }
+}

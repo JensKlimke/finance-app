@@ -1,4 +1,4 @@
-import {Button, Card, Dropdown, Pagination, Table} from 'react-bootstrap';
+import {Button, Card, Dropdown, Form, Pagination, Table} from 'react-bootstrap';
 import {DataComponentConfigType, DataSortConfig, OnRowClickType} from "../../hooks/entry";
 import {useEffect, useReducer} from "react";
 import {BsArrowDown, BsArrowUp, BsDot, BsPlusCircle, BsSortAlphaDown} from "react-icons/bs";
@@ -14,9 +14,11 @@ type StateType = {
   page: number
   totalPages: number
   display: any[]
+  totalDisplay : number
   results: any[]
   totalResults : number
   sortConfig: DataSortConfig | undefined
+  filter: string
 }
 
 const stateDefault : StateType = {
@@ -25,8 +27,10 @@ const stateDefault : StateType = {
   totalPages: 0,
   display: [],
   results: [],
+  totalDisplay: 0,
   totalResults: 0,
-  sortConfig: undefined
+  sortConfig: undefined,
+  filter: '',
 }
 
 type ActionType = {
@@ -39,20 +43,13 @@ function dataReducer(data: StateType, p: ActionType) : StateType {
   switch (p.action) {
     case 'SET_RESULTS':
       state.results = [...p.payload];
-      state.totalPages = Math.ceil(p.payload.length / NUMBER_ELEMENTS_PER_PAGE);
-      state.totalResults = p.payload.length;
       break;
     case 'SET_PAGE':
       // set page
-      if (state.totalPages <= 1)
-        state.page = 0;
-      else if (state.totalPages - 1 < state.page)
-        state.page = state.totalPages - 1;
-      else
-        state.page = p.payload;
+      state.page = p.payload;
       break;
     case 'SET_SORT_CONFIG':
-      state.sortConfig = [...(p.payload as DataSortConfig)];
+      state.sortConfig = {...(p.payload as DataSortConfig)};
       break;
     case 'SORT':
       // save sort
@@ -65,16 +62,32 @@ function dataReducer(data: StateType, p: ActionType) : StateType {
       else
         state.sort = {field: p.payload, asc: true};
       break;
+    case 'SET_FILTER':
+      state.filter = (p.payload as string);
+      break;
   }
   // sort data
   state.display = [...state.results];
   if (state.sort && state.sortConfig) {
-    const sort = state.sortConfig[state.sort.field].callback;
+    const sort = state.sortConfig.fields[state.sort.field].callback;
     state.display.sort((a, b) => state?.sort?.asc ? sort(a, b) : sort(b, a));
   }
+  // filter data
+  state.display = state.display.filter(d => {
+    return state.sortConfig?.filterText(d).toLowerCase().includes(state.filter.toLowerCase())
+  });
   // calculate slice indexes
   const from = state.page * NUMBER_ELEMENTS_PER_PAGE;
   const to = (state.page + 1) * NUMBER_ELEMENTS_PER_PAGE;
+  // set counts
+  state.totalPages = Math.ceil(state.display.length / NUMBER_ELEMENTS_PER_PAGE);
+  state.totalDisplay = state.display.length;
+  state.totalResults = state.results.length;
+  // calc page
+  if (state.totalPages <= 1)
+    state.page = 0;
+  else if (state.totalPages - 1 < state.page)
+    state.page = state.totalPages - 1;
   // apply page slice
   state.display = state.display.slice(from, to);
   // return state
@@ -103,47 +116,56 @@ export default function DataTable({tableConfig, cardConfig, sortConfig, data, on
   // render table
   return (
     <>
-      {(onAdd || state.totalPages > 1) && (
-        <div className="d-flex justify-content-between align-items-center">
-          {onAdd ?
-            <Button onClick={onAdd}><BsPlusCircle/></Button> :
-            <span>&nbsp;</span>
-          }
-          {
-            (state.totalResults > 0 && state.totalPages > 1) && (
-              <Pagination className='mb-0'>
-                {
-                  Array(state.totalPages).fill(0).map((_, p) => (
-                    <Pagination.Item key={p} active={p === state.page} onClick={() => dispatch({action: 'SET_PAGE', payload: p})}>
-                      {p + 1}
-                    </Pagination.Item>
-                  ))
-                }
-              </Pagination>
-            )
-          }
-          {
-            (state.totalResults === 0) && <p className='text-center text-muted mt-3'>Nothing to be shown!</p>
-          }
-          {sortConfig &&
-            <Dropdown>
-              <Dropdown.Toggle>
-                <BsSortAlphaDown />
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                {
-                  sortConfig.map((c, i) => (
-                    <Dropdown.Item key={i} onClick={() => dispatch({action: 'SORT', payload: i})}>
-                      {state.sort && state.sort.field === i ? (state.sort.asc ? <BsArrowDown/> : <BsArrowUp/>) : <BsDot />}&nbsp;{c.label}
-                    </Dropdown.Item>
-                  ))
-                }
-              </Dropdown.Menu>
-            </Dropdown>
-          }
-        </div>
-      )}
-      { (state.totalResults > 0) && (
+      <div className="d-flex justify-content-between align-items-center">
+        {onAdd ?
+          <Button onClick={onAdd}><BsPlusCircle/></Button> :
+          <span>&nbsp;</span>
+        }
+        {
+          (state.totalDisplay > 0 && state.totalPages > 1) && (
+            <Pagination className='mb-0'>
+              {
+                Array(state.totalPages).fill(0).map((_, p) => (
+                  <Pagination.Item key={p} active={p === state.page} onClick={() => dispatch({action: 'SET_PAGE', payload: p})}>
+                    {p + 1}
+                  </Pagination.Item>
+                ))
+              }
+            </Pagination>
+          )
+        }
+        { (sortConfig && state.totalDisplay > 0) ?
+          <Dropdown>
+            <Dropdown.Toggle>
+              <BsSortAlphaDown />
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {
+                sortConfig.fields.map((c, i) => (
+                  <Dropdown.Item key={i} onClick={() => dispatch({action: 'SORT', payload: i})}>
+                    {state.sort && state.sort.field === i ? (state.sort.asc ? <BsArrowDown/> : <BsArrowUp/>) : <BsDot />}&nbsp;{c.label}
+                  </Dropdown.Item>
+                ))
+              }
+            </Dropdown.Menu>
+          </Dropdown> :
+          <span>&nbsp;</span>
+        }
+      </div>
+      <div className="mt-3">
+        <Form>
+          <Form.Control
+            type='text'
+            placeholder='Filter'
+            value={state.filter}
+            onChange={(e) => dispatch({action: 'SET_FILTER', payload: e.target.value})}
+          />
+        </Form>
+      </div>
+      {
+        (state.totalDisplay === 0) && <p className='text-center text-muted mt-3'>Nothing to be shown!</p>
+      }
+      { (state.totalDisplay > 0) && (
         <>
           <div className='overflow-auto mt-3'>
             <div className='d-none d-md-block'>
@@ -168,7 +190,7 @@ export default function DataTable({tableConfig, cardConfig, sortConfig, data, on
             </div>
           </div>
           <p className='text-center text-muted'>
-            {`page ${state.page + 1} of ${state.totalPages} - ${data.length} results in total`}
+            {`page ${state.page + 1} of ${state.totalPages} - ${state.totalDisplay} results (${state.totalResults} in total)`}
           </p>
         </>
       )}

@@ -51,21 +51,24 @@ export const UserRows : DataComponentConfigType = {
 };
 
 
-export const UsersSort : DataSortConfig = [
-  {
-    label: 'Role',
-    callback: (a : UserType, b : UserType) => a.name.localeCompare(b.name),
-  },
-  {
-    label: 'Name',
-    callback: (a : UserType, b : UserType) => a.name.localeCompare(b.name),
-  },
-  {
-    label: 'Email',
-    callback: (a : UserType, b : UserType) => a.email.localeCompare(b.email),
-  },
-  {
-    label: 'Verified',
-    callback: (a : UserType) => a ? -1 : 1,
-  },
-]
+export const UsersSort : DataSortConfig = {
+  fields:[
+    {
+      label: 'Role',
+      callback: (a : UserType, b : UserType) => a.role.localeCompare(b.role),
+    },
+    {
+      label: 'Name',
+      callback: (a : UserType, b : UserType) => a.name.localeCompare(b.name),
+    },
+    {
+      label: 'Email',
+      callback: (a : UserType, b : UserType) => a.email.localeCompare(b.email),
+    },
+    {
+      label: 'Verified',
+      callback: (a : UserType) => a ? -1 : 1,
+    },
+  ],
+  filterText: (row : UserType) => `${row.name} ${row.role} ${row.email}`
+}

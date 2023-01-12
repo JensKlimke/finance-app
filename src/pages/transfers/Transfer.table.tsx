@@ -49,17 +49,20 @@ export const TransferRows : DataComponentConfigType = {
   ]
 }
 
-export const TransfersSort : DataSortConfig = [
-  {
-    label: 'Amount',
-    callback: (a : TransferType, b : TransferType) => (a.amount - b.amount),
-  },
-  {
-    label: 'Description',
-    callback: (a : TransferType, b : TransferType) => a.description.localeCompare(b.description),
-  },
-  {
-    label: 'Transfer Amount',
-    callback: (a : TransferType, b : TransferType) => (a.amount - b.amount),
-  },
-];
+export const TransfersSort : DataSortConfig = {
+  fields: [
+    {
+      label: 'Amount',
+      callback: (a : TransferType, b : TransferType) => (a.amount - b.amount),
+    },
+    {
+      label: 'Description',
+      callback: (a : TransferType, b : TransferType) => a.description.localeCompare(b.description),
+    },
+    {
+      label: 'Transfer Amount',
+      callback: (a : TransferType, b : TransferType) => (a.amount - b.amount),
+    },
+  ],
+  filterText: (row : TransferType) => `${row.amount} ${row.description} ${row.amount}`
+};
