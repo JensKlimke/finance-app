@@ -1,5 +1,5 @@
 import {Table} from "react-bootstrap";
-import CurrencyCell from "../../components/display/CurrencyCell";
+import CurrencyCell from "../../../components/display/CurrencyCell";
 
 export const MonthsTable = ({data}: { data: any }) => {
   // function to month name

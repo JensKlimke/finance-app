@@ -1,6 +1,6 @@
 import {useMemo} from "react";
 import {Table} from "react-bootstrap";
-import CurrencyCell from "../../components/display/CurrencyCell";
+import CurrencyCell from "../../../components/display/CurrencyCell";
 
 export const MetricsTable = ({data}: { data: any }) => {
   // calculate sum
