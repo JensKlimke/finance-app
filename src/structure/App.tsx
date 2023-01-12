@@ -57,10 +57,12 @@ export default function App({children}: { children: React.ReactNode }) {
       </div>
       <div className='Sidebar'>
         <div className='Logo'>
-          <h1 className='display-6'><BsPiggyBank /></h1>
+          <h1>
+            <BsPiggyBank />
+          </h1>
         </div>
         <div className='Logo small'>
-          $$$
+          <h3><BsPiggyBank /></h3>
         </div>
         <Nav/>
       </div>
