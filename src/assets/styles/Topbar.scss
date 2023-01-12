@@ -12,6 +12,8 @@
 
   background-color: $topbar-bg-color;
   box-shadow: 0 0 $topbar-shadow-width $topbar-shadow-color;
+
+  z-index: 999;
 }
 
 .Topbar .Title {
