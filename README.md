@@ -4,13 +4,14 @@
 ## TODOs
 
 ### Structure
-- [ ] Topbar Nav as full page container, with "overflow-y: scroll"
-- [ ] Headers for Nav sections
+- [x] Topbar Nav as full page container, with "overflow-y: scroll"
+- [x] Headers for Nav sections
 - [ ] Align state management of forms (useReducer, see Register.page)
 
 ### New Features
 - [ ] Steuerfreibeträge für Konten
 - [ ] Sparziele
+- [ ] Pension situation
 - [ ] ...
 
 
