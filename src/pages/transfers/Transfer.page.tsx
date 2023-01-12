@@ -46,7 +46,7 @@ const TransferContent = () => {
           </Card>
         </Col>
         <Col lg={4}>
-          {data.totalResults > 0 && (
+          {data.length > 0 && (
             <Card className='mb-4'>
               <Card.Header>Balance</Card.Header>
               <Card.Body>
@@ -59,7 +59,7 @@ const TransferContent = () => {
             <Card.Body>
               <ButtonGroup vertical className='d-flex'>
                 <ImportButton onImport={saveMany}/>
-                <ExportButton object={data.results}/>
+                <ExportButton object={data}/>
                 <DeleteButton onDelete={eraseAll}/>
               </ButtonGroup>
             </Card.Body>
@@ -83,8 +83,8 @@ const BalanceTable = () => {
   const amounts = useMemo(() => {
     if (!data) return undefined;
     return {
-      in:  data.results.reduce((s, c) => s + (c.amount > 0.0 ? c.amount : 0.0), 0.0),
-      out: data.results.reduce((s, c) => s + (c.amount < 0.0 ? c.amount : 0.0), 0.0),
+      in:  data.reduce((s, c) => s + (c.amount > 0.0 ? c.amount : 0.0), 0.0),
+      out: data.reduce((s, c) => s + (c.amount < 0.0 ? c.amount : 0.0), 0.0),
     }
   }, [data]);
   // check data

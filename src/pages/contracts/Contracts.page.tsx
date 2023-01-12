@@ -1,12 +1,12 @@
-import React, {useEffect} from "react";
+import React, {useMemo} from "react";
 import {ButtonGroup, Card, Col, Container, Row} from "react-bootstrap";
 import ContentMessage from "../../components/display/ContentMessage";
 import EntryFormModal from "../../components/forms/EntryFormModal";
-import {MetricsTable} from "./MetricsTable";
-import {MonthsTable} from "./MonthsTable";
+import {MetricsTable} from "./components/MetricsTable";
+import {MonthsTable} from "./components/MonthsTable";
 import {ContractCols, ContractRows, ContractSort} from "./Contracts.table";
 import ContractsForm from "./Contracts.form";
-import ContractProvider, {ContractContext, useContracts, useContractStatistics} from "./Contracts.context";
+import ContractProvider, {ContractContext, ContractType, useContracts} from "./Contracts.context";
 import DataTable from "../../components/display/DataTable";
 import ImportButton from "../../components/forms/ImportButton";
 import ExportButton from "../../components/forms/ExportButton";
@@ -24,9 +24,10 @@ export default function ContractsPage() {
 const ContractContent = () => {
   // get data
   const {data : contractsData, edit, saveMany, eraseAll} = useContracts();
-  const {data : statisticsData, reload : reloadStatistics} = useContractStatistics();
-  // effects
-  useEffect(() => reloadStatistics(), [reloadStatistics, contractsData]);
+  // calculate statistics
+  const statisticsData = useMemo(() => {
+    return contractsData && statistics(contractsData);
+  }, [contractsData]);
   // check data
   if (!statisticsData || !contractsData)
     return <ContentMessage text={'Loading contracts'}/>;
@@ -50,7 +51,7 @@ const ContractContent = () => {
           </Card>
         </Col>
         <Col lg={4}>
-          { contractsData.results.length > 0 && (
+          { contractsData.length > 0 && (
             <>
               <Card className='mb-4'>
                 <Card.Header>Per Month</Card.Header>
@@ -71,7 +72,7 @@ const ContractContent = () => {
             <Card.Body>
               <ButtonGroup vertical className='d-flex'>
                 <ImportButton onImport={saveMany}/>
-                <ExportButton object={contractsData.results}/>
+                <ExportButton object={contractsData}/>
                 <DeleteButton onDelete={eraseAll}/>
               </ButtonGroup>
             </Card.Body>
@@ -88,6 +89,15 @@ const ContractContent = () => {
 }
 
 
-
-
+const statistics = (contracts : ContractType[]) => {
+  // get months array
+  const months = Array.from(Array(12).keys());
+  // calculate value
+  const sumOfYear = contracts.reduce((s, c) => s + c.amount * c.months.filter(x => x).length, 0.0);
+  const perMonth = months.map((m) => contracts.reduce((s, c) => s + (c.months[m] ? c.amount : 0.0), 0.0));
+  const maxMonth = perMonth.reduce((j, m, i, a) => (m > a[j] ? i : j), 0);
+  const sharedAmount = contracts.reduce((s, c) => s + (c.shared ? (c.amount * c.months.filter(x => x).length) / 12 : 0.0), 0);
+  // send result
+  return {sumOfYear, perMonth, maxMonth, sharedAmount};
+}
 

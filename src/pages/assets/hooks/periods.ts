@@ -112,12 +112,12 @@ export function usePeriodData() {
   }, [setBalanceRef, setOrdersRef]);
   // effects
   useEffect(() => {
-    if (!accounts || accounts.totalResults === 0)
+    if (!accounts || accounts.length === 0)
       setAccount(undefined); // unset account, when no accounts
-    else if (account && accounts.results.find(a => a.id === account) === undefined)
+    else if (account && accounts.find(a => a.id === account) === undefined)
       setAccount(undefined); // unset account, when not existing
-    else if (accounts && accounts.totalResults > 0 && !account)
-      setAccount(accounts.results[0].id);
+    else if (accounts && accounts.length > 0 && !account)
+      setAccount(accounts[0].id);
   }, [account, accounts, setAccount]);
   useEffect(() => {
     // set filter
@@ -128,10 +128,10 @@ export function usePeriodData() {
     // check data and return periods
     if (!orders || !balances || ordersLoading || balancesLoading)
       return undefined;
-    else if (balances.results.length === 0)
+    else if (balances.length === 0)
       return setPeriods([]);
-    else if(orders.results.length > 0)
-      setPeriods(calcPeriods(balances.results, orders.results));
+    else if(orders.length > 0)
+      setPeriods(calcPeriods(balances, orders));
   }, [balances, balancesLoading, orders, ordersLoading]);
   // return
   return {
@@ -139,9 +139,9 @@ export function usePeriodData() {
     setAccount,
     periods,
     data: {
-      accounts: accounts?.results,
-      orders: orders?.results,
-      balances: balances?.results
+      accounts: accounts,
+      orders: orders,
+      balances: balances
     }
   };
 }

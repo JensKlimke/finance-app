@@ -22,8 +22,7 @@ const StocksContent = () => {
   // get data
   const {data, edit, eraseAll, saveMany} = useStocks();
   // check data
-  if (!data)
-    return null;
+  if (!data) return null;
   // render table
   return (
     <Container>
@@ -49,7 +48,7 @@ const StocksContent = () => {
             <Card.Body>
               <ButtonGroup vertical className='d-flex'>
                 <ImportButton onImport={saveMany}/>
-                <ExportButton object={data.results}/>
+                <ExportButton object={data}/>
                 <DeleteButton onDelete={eraseAll}/>
               </ButtonGroup>
             </Card.Body>

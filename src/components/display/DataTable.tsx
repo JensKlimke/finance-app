@@ -1,5 +1,5 @@
 import {Button, Card, Dropdown, Pagination, Table} from 'react-bootstrap';
-import {DataComponentConfigType, DataSortConfig, DataType, OnRowClickType} from "../../hooks/entry";
+import {DataComponentConfigType, DataSortConfig, OnRowClickType} from "../../hooks/entry";
 import {useEffect, useReducer} from "react";
 import {BsArrowDown, BsArrowUp, BsDot, BsPlusCircle, BsSortAlphaDown} from "react-icons/bs";
 
@@ -85,7 +85,7 @@ export type DataTableProps = {
   tableConfig?: DataComponentConfigType
   cardConfig?: DataComponentConfigType
   sortConfig?: DataSortConfig
-  data: DataType
+  data: any[]
   onRowClick: OnRowClickType
   onAdd?: () => void
 }
@@ -98,8 +98,8 @@ export default function DataTable({tableConfig, cardConfig, sortConfig, data, on
     dispatch({action: 'SET_SORT_CONFIG', payload: sortConfig});
   }, [sortConfig]);
   useEffect(() => {
-    dispatch({action: 'SET_RESULTS', payload: data.results});
-  }, [data.results]);
+    dispatch({action: 'SET_RESULTS', payload: data});
+  }, [data]);
   // render table
   return (
     <>
@@ -168,7 +168,7 @@ export default function DataTable({tableConfig, cardConfig, sortConfig, data, on
             </div>
           </div>
           <p className='text-center text-muted'>
-            {`page ${state.page + 1} of ${state.totalPages} - ${data.totalResults} results in total`}
+            {`page ${state.page + 1} of ${state.totalPages} - ${data.length} results in total`}
           </p>
         </>
       )}

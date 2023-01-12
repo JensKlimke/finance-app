@@ -2,13 +2,6 @@
 import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {useApi} from "./api";
 
-export type DataType = {
-  page: number
-  totalPages: number
-  totalResults: number
-  results: any[]
-}
-
 export type ContentElement = JSX.Element | string | number;
 
 export type DataColType = {
@@ -54,7 +47,7 @@ export type EntryResponseType<Type> = {
 }
 
 export type EntryContextType<Type> = {
-  data?: EntryResponseType<Type>
+  data?: Type[] // EntryResponseType<Type>
   reload: ReloadCallbackType
   save: SaveCallbackType
   saveMany : SaveManyCallbackType<Type>
@@ -215,7 +208,7 @@ export function GenericEntryProvider<Type extends {id ?: string}> (
     // build context object
     const context = useMemo<EntryContextType<Type>>(() => ({
       entry,
-      data,
+      data: data !== undefined ? data.results : undefined,
       save,
       saveMany,
       erase,
