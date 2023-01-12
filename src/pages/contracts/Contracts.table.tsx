@@ -29,7 +29,7 @@ export const ContractCols : DataComponentConfigType = {
         </>
       ),
       className: 'align-middle',
-      width: 40,
+      width: 50,
       sort: 0
     },
     {

@@ -1,14 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import "../assets/styles/App.scss"
 import Nav from "./Nav";
 import {useAuth} from "../components/auth/AuthContext";
 import {Button} from "react-bootstrap";
-import TopbarNav from "./TopbarNav";
 import LoadingScreen from "../components/auth/LoadingScreen";
-import {BsPiggyBank} from "react-icons/bs";
+import {BsList, BsPiggyBank} from "react-icons/bs";
 import {Navigate, NavLink} from "react-router-dom";
 
 export default function App({children}: { children: React.ReactNode }) {
+  // states
+  const [topNavOpen, setTopNavOpen] = useState(false);
   // hooks
   const {logout, pending, session} = useAuth();
   // don't render if not logged in
@@ -40,9 +41,19 @@ export default function App({children}: { children: React.ReactNode }) {
       <div className='Topbar d-flex justify-content-between'>
         <h3 className='Title'>FinApp</h3>
         {logout && <Button variant='link' onClick={() => logout()} className='d-none d-sm-block'>Logout</Button>}
-        <TopbarNav>
-          <Nav/>
-        </TopbarNav>
+        <div className='d-inline-block d-sm-none float-right'>
+          <Button
+            className='toggle-button'
+            variant='outline-secondary'
+            onClick={ () => setTopNavOpen(!topNavOpen) }
+          >
+            <BsList />
+          </Button>
+        </div>
+      </div>
+      <div className={`TopNav d-${topNavOpen ? 'block' : 'none'}`}>
+        <hr />
+        <Nav />
       </div>
       <div className='Sidebar'>
         <div className='Logo'>

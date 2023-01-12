@@ -58,8 +58,11 @@ ul.Nav li .icon {
   top: $topbar-height;
   left: 0;
   right: 0;
-  height: auto;
+  bottom: 0;
 
+  overflow-y: scroll;
+
+  z-index: 999;
   background-color: $topbar-bg-color;
 }
 
