@@ -16,6 +16,7 @@ import RegisterPage from "./pages/auth/Register.page";
 import NotFound from "./pages/NotFound";
 import UsersPage from "./pages/users/Users.page";
 import AboutPage from "./pages/about/About.page";
+import LocationsPage from "./pages/locations/Locations.page";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -37,6 +38,7 @@ root.render(
         {process.env.REACT_APP_WITH_HOME_AUTOMATION && (
           <>
             <Route path="home/heartbeat" element={withAuth(<HeartbeatPage />)} />
+            <Route path="home/locations" element={withAuth(<LocationsPage />)} />
           </>
         )}
         <Route path="auth/login" element={<LoginPage />} />

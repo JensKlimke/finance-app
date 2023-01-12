@@ -3,7 +3,7 @@ import {
   BsArrowLeftRight,
   BsBank,
   BsBoxArrowLeft,
-  BsCash,
+  BsCash, BsGeoFill,
   BsInfoCircle,
   BsPen,
   BsPeople,
@@ -107,6 +107,16 @@ export default function Nav() {
                 </span>
                 <span className='text'>
                   System Status
+                </span>
+              </li>
+            </NavLink>
+            <NavLink to='/home/locations'>
+              <li>
+                <span className='icon'>
+                  <BsGeoFill />
+                </span>
+                <span className='text'>
+                  Locations
                 </span>
               </li>
             </NavLink>

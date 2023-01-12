@@ -31,6 +31,7 @@
     "apexcharts": "^3.36.3",
     "bootstrap": "^5.2.3",
     "bootswatch": "^5.2.2",
+    "leaflet": "^1.9.3",
     "mathjs": "^11.5.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
@@ -39,6 +40,7 @@
     "react-calendar": "^4.0.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
+    "react-leaflet": "^4.2.0",
     "react-router-dom": "^6.4.4",
     "react-scripts": "5.0.1",
     "react-syntax-highlighter": "^15.5.0",
@@ -47,6 +49,7 @@
     "typescript": "^4.9.3"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.0",
     "@types/mathjs": "^9.4.2",
     "@types/node": "^18.11.11",
     "@types/react": "^18.0.26",
