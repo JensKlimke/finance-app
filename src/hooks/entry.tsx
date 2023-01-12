@@ -62,34 +62,34 @@ export type EntryContextType<Type> = {
 }
 
 export const defaultContext = {
-  save: () => new Promise<any>(reject => {
+  'save': () => new Promise<any>(reject => {
     reject("Not implemented")
   }),
-  saveMany: () => new Promise<any>(reject => {
+  'saveMany': () => new Promise<any>(reject => {
     reject("Not implemented")
   }),
-  erase: () => new Promise<any>(reject => {
+  'erase': () => new Promise<any>(reject => {
     reject("Not implemented")
   }),
-  eraseAll: () => new Promise<any>(reject => {
+  'eraseAll': () => new Promise<any>(reject => {
     reject("Not implemented")
   }),
-  reload: () => {
+  'reload': () => {
     throw new Error('Not implemented')
   },
-  edit: () => {
+  'edit': () => {
     throw new Error('Not implemented')
   },
-  update: () => {
+  'update': () => {
     throw new Error('Not implemented')
   },
-  setReference: () => {
+  'setReference': () => {
     throw new Error('Not implemented')
   },
-  setFilter: () => {
+  'setFilter': () => {
     throw new Error('Not implemented')
   },
-  loading: false
+  'loading': false
 }
 
 
