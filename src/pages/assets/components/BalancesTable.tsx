@@ -22,8 +22,8 @@ export default function BalancesTable ({periods, balances} : {periods?: PeriodTy
         <>
           <Button className='d-block d-md-none mx-auto mb-3' onClick={() => edit('')}>Add balance</Button>
           <Button className='d-none d-md-block mb-3' onClick={() => edit('')}><BsPlusCircle /></Button>
-          <TableContent periods={periods} edit={edit} />
-          <CarouselContent periods={periods} edit={edit} />
+          <TableContent periods={[...periods].reverse()} edit={edit} />
+          <CarouselContent periods={[...periods].reverse()} edit={edit} />
           <p className='text-center text-muted'>{`${balances.length} balance entries in total`}</p>
         </>
       )}

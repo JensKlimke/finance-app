@@ -69,7 +69,7 @@ function TableContent ({periods, edit} : {periods: PeriodType[], edit: EditCallb
                 )
               }
               {
-                p.orders.map(o => (
+                [...p.orders].reverse().map(o => (
                   <tr key={o.id} onClick={() => edit(o.id)} role='button'>
                     <td width='15%' className='text-nowrap'>{moment(o.date).format('ll')}</td>
                     <td width='15%' className='text-nowrap'>{TypeMapping[o.type] || o.type}</td>

@@ -100,7 +100,7 @@ function DetailedContentView ({account, periods, balances, orders} : AccountPeri
       <Card>
         <Card.Header>Balances</Card.Header>
         <Card.Body>
-          <BalancesTable periods={[...periods].reverse()} balances={balances} />
+          <BalancesTable periods={periods} balances={balances} />
         </Card.Body>
       </Card>
       <Card className='mt-4'>
