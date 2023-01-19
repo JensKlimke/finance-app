@@ -1,7 +1,7 @@
-import {Button, Card, Dropdown, Form, Pagination, Table} from 'react-bootstrap';
+import {Button, Card, Dropdown, Form, InputGroup, Pagination, Table} from 'react-bootstrap';
 import {DataComponentConfigType, DataSortConfig, OnRowClickType} from "../../hooks/entry";
-import {useEffect, useReducer} from "react";
-import {BsArrowDown, BsArrowUp, BsDot, BsPlusCircle, BsSortAlphaDown} from "react-icons/bs";
+import React, {useEffect, useReducer} from "react";
+import {BsArrowDown, BsArrowUp, BsDot, BsPlusCircle, BsSortAlphaDown, BsXLg} from "react-icons/bs";
 
 const NUMBER_ELEMENTS_PER_PAGE = Number.parseInt(process.env.REACT_APP_TABLE_NUMBER_ELEMENTS_PER_PAGE || '') || 15;
 
@@ -152,14 +152,19 @@ export default function DataTable({tableConfig, cardConfig, sortConfig, data, on
           <span>&nbsp;</span>
         }
       </div>
-      <div className="mt-3">
+      <div>
         <Form>
-          <Form.Control
-            type='text'
-            placeholder='Filter'
-            value={state.filter}
-            onChange={(e) => dispatch({action: 'SET_FILTER', payload: e.target.value})}
-          />
+          <InputGroup className="mt-3">
+            <Form.Control
+              type='text'
+              placeholder='Type to filter...'
+              value={state.filter}
+              onChange={(e) => dispatch({action: 'SET_FILTER', payload: e.target.value})}
+            />
+            <Button variant='outline-light' onClick={() => dispatch({action: 'SET_FILTER', payload: ''})}>
+              <BsXLg />
+            </Button>
+          </InputGroup>
         </Form>
       </div>
       {
