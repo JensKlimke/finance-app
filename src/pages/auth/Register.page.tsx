@@ -137,10 +137,10 @@ export default function RegisterPage() {
                   <hr />
                   { error && <Alert variant={'danger'} onClose={() => setError(undefined)} dismissible>{error}</Alert> }
                   <div className='d-flex justify-content-between align-items-center'>
+                    <NavLink to='/auth/login' className='ms-2'>Login</NavLink>
                     <Button variant='primary' type='submit' disabled={pending || !!state.passwordRepeatError || !!state.passwordError}>
                       { pending ? <Spinner animation='border' size='sm' /> : 'Create Account' }
                     </Button>
-                    <NavLink to='/auth/login' className='me-2'>Login</NavLink>
                   </div>
                 </Form>
               )}

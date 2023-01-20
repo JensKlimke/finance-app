@@ -55,12 +55,12 @@ export default function LoginPage () {
                   </Form.Group>
                   { message && <Alert variant={"danger"} onClose={() => setMessage(undefined)} dismissible>{message}</Alert> }
                   <div className='d-flex justify-content-between align-items-center'>
+                    <NavLink to="/auth/register" className='ms-2'>
+                      Create Account
+                    </NavLink>
                     <Button variant="primary" type="submit" disabled={pending}>
                       { pending ? <Spinner animation='border' size='sm' /> : 'Log In' }
                     </Button>
-                    <NavLink to="/auth/register" className='me-2'>
-                      Create Account
-                    </NavLink>
                   </div>
                 </Form>
               )}
