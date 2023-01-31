@@ -10,7 +10,7 @@ export default function TransferForm ({entry, handleSubmit, update} : {
   update : UpdateCallbackType<TransferType>
 }) {
   return (
-    <Form onSubmit={(e) => handleSubmit(e)} id='transferForm' method='post'>
+    <Form onSubmit={(e) => handleSubmit(e)} id='entryForm' method='post'>
       <Form.Group className="mb-3">
         <Form.Label>Description</Form.Label>
         <Form.Control
